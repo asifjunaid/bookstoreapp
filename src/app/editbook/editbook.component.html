@@ -1,0 +1,42 @@
+<ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+<ngb-alert *ngIf="errorMessage" type="danger" (close)="errorMessage = null">{{ errorMessage }}</ngb-alert>
+
+<br />
+<div class="container">
+  <a routerLink="/books" ><button type="button"  mdbBtn color="primary" size="sm" mdbWavesEffect>Back</button></a>        
+  <form class="border border-light p-5"  [formGroup]="bookForm"  (ngSubmit)="onSubmit()">
+
+  <p class="h4 mb-4 text-left">{{actionTitle}}</p>
+
+  <input type="text" formControlName="name" id="bookName" class="form-control mb-4" placeholder="Name" >  
+  <div *ngIf="submitted && f.name.errors" >
+      <div *ngIf="f.name.errors.required" class="form-text text-muted mb-4 text-danger">Name is required</div>
+  </div>
+
+  <input type="text" (keypress)="numberOnly($event)" formControlName="numberOfPages" id="bookNumberOfPages" class="form-control mb-4" placeholder="Number Of Pages">
+  <div *ngIf="submitted && f.numberOfPages.errors" >
+      <div *ngIf="f.numberOfPages.errors.required" class="form-text text-muted mb-4 text-danger">Number of pages is required</div>
+  </div>
+  
+  <input type="text"   class="form-control mb-4" formControlName="dateOfPublication" id="bookDateOfPublication" placeholder="Date Of Publication (yyyy-mm-dd)" 
+      ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()">
+  
+  <div *ngIf="submitted && f.dateOfPublication.errors" >
+      <div *ngIf="f.dateOfPublication.errors.required" class="form-text text-muted mb-4 text-danger">Date of publication is required</div>
+  </div>
+
+  <input type="text" formControlName="authers" id="bookAuthers" class="form-control mb-4" placeholder="Authers (For multiple authors use comma)">
+  <div *ngIf="submitted && f.authers.errors" >
+      <div *ngIf="f.authers.errors.required" class="form-text text-muted mb-4 text-danger">Auther is required</div>
+  </div>
+  <table ><tr><td>
+      <button type="submit"  mdbBtn color="primary" size="sm" mdbWavesEffect [disabled]="bookForm.invalid">Save</button>
+    </td>
+    <td>
+        <a routerLink="/books" ><button type="button"  mdbBtn color="primary" size="sm" mdbWavesEffect>Cancel</button></a>        
+    </td></tr>
+  </table>
+  
+</form>
+</div>
+<br />
